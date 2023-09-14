@@ -22,5 +22,6 @@ router.post(
   customizeController.uploadSlideImage
 );
 router.post("/dashboard-data", customizeController.getAllData);
+router.post("/update-slider", customizeController.updateBannerImage);
 
 module.exports = router;

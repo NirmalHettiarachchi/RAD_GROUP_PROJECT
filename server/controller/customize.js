@@ -8,7 +8,7 @@ const customizeModel = require("../models/customize");
 class Customize {
   async getImages(req, res) {
     try {
-      let Images = await customizeModel.find({});
+      let Images = await customizeModel.find({}).sort({ firstShow: -1 });
       if (Images) {
         return res.json({ Images });
       }
@@ -69,6 +69,24 @@ class Customize {
       if (Categories && Products && Orders) {
         return res.json({ Categories, Products, Orders, Users });
       }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async updateBannerImage(req, res) {
+    try {
+      let Images = await customizeModel.findOne({ _id: req.body.id });
+      let prevImage = await customizeModel.findOne({ firstShow: 1 });
+      if (prevImage) {
+        prevImage.firstShow = 0;
+        await prevImage.save();
+      }
+      if (Images) {
+        Images.firstShow = 1;
+        await Images.save();
+      }
+      return res.json({ message: "success" });
     } catch (err) {
       console.log(err);
     }

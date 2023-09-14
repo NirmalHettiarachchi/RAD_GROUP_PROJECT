@@ -64,7 +64,22 @@ const Slider = (props) => {
                 d="M9 5l7 7-7 7"
               />
             </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                flexDirection: "column",
+                backgroundColor: "rgba(0, 0, 0, 0.35)",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "2rem",
+                  marginBottom: "1rem",
+                  color: "white",
+                }}
+              >
+                Amazing e-commerce platform for everyone{" "}
+              </h2>
               <a
                 href="#shop"
                 style={{ background: "#303031" }}
