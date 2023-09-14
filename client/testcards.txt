@@ -1,0 +1,1 @@
+https://developer.paypal.com/braintree/docs/guides/credit-cards/testing-go-live/php
