@@ -34,7 +34,7 @@ const CategoryList = () => {
         {categories && categories.length > 0 ? (
           categories.map((item, index) => {
             return (
-              <Fragment key={index}>
+              <div key={index} className=" border border-danger hover-category">
                 <div
                   onClick={(e) =>
                     history.push(`/products/category/${item._id}`)
@@ -47,7 +47,7 @@ const CategoryList = () => {
                   />
                   <div className="font-medium">{item.cName}</div>
                 </div>
-              </Fragment>
+              </div>
             );
           })
         ) : (
@@ -217,7 +217,17 @@ const Search = () => {
 
 const ProductCategoryDropdown = (props) => {
   return (
-    <div style={{ position: "absolute", zIndex: 2, background: "#e9dfdf" }}>
+    <div
+      style={{
+        position: "absolute",
+        zIndex: 2,
+        background: "#e9dfdf",
+        width: "97%",
+        margin: "auto",
+        boxShadow: "1px 1px 2px",
+        borderRadius: "2px",
+      }}
+    >
       <CategoryList />
       <FilterList />
       <Search />

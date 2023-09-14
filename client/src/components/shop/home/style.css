@@ -25,3 +25,7 @@
   background: #b7791f;
   cursor: pointer;
 }
+
+.hover-category:hover {
+  background-color: #c09f1b61;
+}
