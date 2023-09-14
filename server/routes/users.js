@@ -7,7 +7,7 @@ router.post("/signle-user", usersController.getSingleUser);
 
 router.post("/add-user", usersController.postAddUser);
 router.post("/edit-user", usersController.postEditUser);
-router.post("/delete-user", usersController.getDeleteUser);
+router.post("/delete-user", usersController.postDeleteUser);
 
 router.post("/change-password", usersController.changePassword);
 

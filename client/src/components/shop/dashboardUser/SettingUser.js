@@ -2,6 +2,9 @@ import React, { Fragment, useState, useContext } from "react";
 import Layout from "./Layout";
 import { handleChangePassword } from "./Action";
 import { DashboardUserContext } from "./Layout";
+import axios from "axios";
+
+const apiURL = process.env.REACT_APP_API_URL;
 
 const SettingComponent = () => {
   const { data, dispatch } = useContext(DashboardUserContext);
@@ -166,6 +169,35 @@ const SettingComponent = () => {
             </div>
           </div>
         </div>
+        <button
+          style={{
+            backgroundColor: "red",
+            border: "1px solid black",
+            alignSelf: "center",
+            color: "white",
+            borderRadius: "0.5rem",
+          }}
+          className="my-2 py-2 px-2"
+          onClick={(e) => {
+            let value = window.confirm(
+              "Are you sure you want to delete your account? This action can not be undone!!"
+            );
+            if (true) {
+              let _id = JSON.parse(localStorage.getItem("jwt")).user._id;
+              axios
+                .post(`${apiURL}/api/user/delete-user`, { id: _id })
+                .catch((err) => {
+                  console.log(err);
+                });
+              localStorage.removeItem("jwt");
+              localStorage.removeItem("cart");
+              localStorage.removeItem("wishList");
+              window.location.href = "/";
+            }
+          }}
+        >
+          Delete Account
+        </button>
       </div>
     </Fragment>
   );

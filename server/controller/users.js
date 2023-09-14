@@ -82,6 +82,13 @@ class User {
       });
     }
   }
+  async postDeleteUser(req, res) {
+    let id = req.body.id;
+    console.log(id);
+    userModel.findByIdAndDelete(id).catch((err) => {
+      console.log(err);
+    });
+  }
 
   async getDeleteUser(req, res) {
     let { oId, status } = req.body;
@@ -130,5 +137,5 @@ class User {
   }
 }
 
-const ordersController = new User();
-module.exports = ordersController;
+const userController = new User();
+module.exports = userController;
