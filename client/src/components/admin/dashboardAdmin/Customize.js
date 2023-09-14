@@ -1,6 +1,7 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { DashboardContext } from "./";
 import { uploadImage, sliderImages, deleteImage } from "./Action";
+import axios from "axios";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -87,6 +88,7 @@ const UploadImageSection = () => {
             id="image"
           />
         </div>
+
         <span
           onClick={(e) =>
             dispatch({
@@ -129,6 +131,8 @@ const AllImages = () => {
   const deleteImageReq = (id) => {
     deleteImage(id, dispatch);
   };
+  const [currentBanner, setCurrentBanner] = useState();
+  const [alert, setAlert] = useState(false);
 
   return (
     <Fragment>
@@ -190,7 +194,66 @@ const AllImages = () => {
             No slide image found
           </div>
         )}
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          style={{ padding: "1rem", borderColor: "black" }}
+          onChange={(e) => {
+            setCurrentBanner(e.target.value);
+          }}
+        >
+          {data.sliderImages.length > 0
+            ? data.sliderImages.map((item, index) => {
+                if (index === 0) {
+                  return (
+                    <option selected value={item._id}>
+                      {item.slideImage}
+                    </option>
+                  );
+                } else {
+                  return <option value={item._id}>{item.slideImage}</option>;
+                }
+              })
+            : ""}
+        </select>
+        <button
+          className="z-10 bg-gray-100 mx-3"
+          style={{
+            background: "#303031",
+            color: "white",
+            borderRadius: "0.5rem",
+          }}
+          onClick={(e) => {
+            e.preventDefault();
+            axios
+              .post(`${apiURL}/api/customize/update-slider`, {
+                id: currentBanner,
+              })
+              .then((res) => {
+                if (res.data.message) {
+                  setAlert(true);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                setAlert(false);
+              });
+          }}
+        >
+          Set Banner
+        </button>
       </div>
+      {alert ? (
+        <div
+          class="alert alert-success"
+          role="alert"
+          style={{ color: "green" }}
+        >
+          <h4 class="alert-heading">Banner setting was successful!!</h4>
+        </div>
+      ) : (
+        ""
+      )}
     </Fragment>
   );
 };
